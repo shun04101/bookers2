@@ -9,15 +9,18 @@
 
 
 <h1>Books</h1>
-<% @books.each do |book| %>
-
-  <p>Title:</p>
-  <%= link_to book_path(book.id) do %>
-    <%= book.title %>
+  <% @books.each do |book| %>
+    <%= link_to user_path(@user) do %>
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+    <% end %>
+    <p>Title:
+      <%= link_to book_path(book.id) do %>
+        <%= book.title %>
+      <% end %>
+    </p>
+    <p>Option: <%= book.body %></p>
   <% end %>
-  <p>Option: <%= book.body %></p>
-  <%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
-<% end %>
+
 
 
 <h1>New book</h1>
