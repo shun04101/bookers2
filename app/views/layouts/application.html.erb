@@ -11,40 +11,49 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to 'Bookers', root_path %>
-      </li>
-      <li>
-        <%= link_to 'Home', user_path(current_user.id) %>
-      </li>
-      <li>
-        <%= link_to 'Users', user_path(current_user.id) %>
-      </li>
-      <li>
-        <%= link_to 'Books', books_path %>
-      </li>
-      <li>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to 'Bookers', root_path %>
-      </li>
-      <li>
-        <%= link_to 'Home', root_path %>
-      </li>
-      <li>
-        <%= link_to 'About', homes_path %>
-      </li>
-      <li>
-        <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Log in", new_user_session_path %>
-      </li>
-    <% end %>
-
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <span>Bookers</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-taeget="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-extended="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'Home', user_path(current_user.id), class:"nav-link texe-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Users', user_path(current_user.id), class:"nav-link texe-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Books', books_path, class:"nav-link texe-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-link texe-light" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Home', root_path, class:"fas fa-home nav-link texe-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'About', home_about_path, class:"fas fa-link nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign up", new_user_registration_path, class:"fas fa-user-plus nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log in", new_user_session_path, class:"fas faa-sign-in-alt nav-link text-light" %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

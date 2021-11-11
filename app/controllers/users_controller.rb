@@ -6,10 +6,11 @@ class UsersController < ApplicationController
     @books = @user.books
   end
 
-  def new
-    @user = User.new
+  def index
+    @users = User.all
+    @book = Book.new
   end
-
+  
   def create
     @book = Book.new(book_params[:id])
     @book.user_id = current_user.id
