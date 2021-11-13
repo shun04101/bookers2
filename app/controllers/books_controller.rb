@@ -1,10 +1,11 @@
 class BooksController < ApplicationController
-  before_action :baria_user, only: [:edit, :destroy, :update]
-  before_action :authenticate_user!, except: [:index]
+  # before_action :baria_user, only: [:edit, :destroy, :update]
+  # before_action :authenticate_user!, except: [:index]
   # before_action :user_check, only: [:edit, :destroy]
-
+  before_action :authenticate_user!
 
   def create
+    @user = current_user
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
@@ -18,6 +19,11 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
+    if @book.user == current_user
+      render 'edit'
+    else
+      redirect_to books_path
+    end
   end
 
   def update
@@ -39,7 +45,8 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @user = current_user
+    @user = @book.user
+    @new_book = Book.new
   end
 
   def destroy
