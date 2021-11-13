@@ -1,4 +1,8 @@
 class BooksController < ApplicationController
+  before_action :baria_user, only: [:edit, :destroy, :update]
+  before_action :authenticate_user!, except: [:index]
+  # before_action :user_check, only: [:edit, :destroy]
+
 
   def create
     @book = Book.new(book_params)
@@ -49,4 +53,9 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
 
+  def baria_user
+    unless Book.find(params[:id]).user.id.to_i == current_user.id
+      redirect_to books_path
+    end
+  end
 end
